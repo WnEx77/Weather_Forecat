@@ -9,10 +9,20 @@
 <body>
     <div class="weather-container">
         <h1>Weather Dashboard</h1>
+        
+        <!-- Language Dropdown -->
+        <div>
+            <select id="language" onchange="changeLanguage()">
+                <option value="en">English</option>
+                <option value="ar">Arabic</option>
+            </select>
+        </div>
+        
         <div>
             <input type="text" id="city" placeholder="Enter city name" />
             <button onclick="getWeather()">Get Weather</button>
         </div>
+        
         <div id="weather-output">
             <!-- Weather information will be displayed here -->
         </div>
