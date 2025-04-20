@@ -1,15 +1,22 @@
 const apiKey = 'eb2aef429f5b4535afbfae2e9823dc76'; // Replace this with your OpenWeatherMap API key
+let selectedLanguage = 'en';  // Default language is English
 
+// Function to handle language change
+function changeLanguage() {
+    selectedLanguage = document.getElementById('language').value;
+}
+
+// Fetch weather data
 function getWeather() {
     const city = document.getElementById('city').value;
     const weatherOutput = document.getElementById('weather-output');
     
     if (city === "") {
-        weatherOutput.innerHTML = `<p class="error">Please enter a city name.</p>`;
+        weatherOutput.innerHTML = `<p class="error">${selectedLanguage === 'en' ? 'Please enter a city name.' : 'يرجى إدخال اسم المدينة.'}</p>`;
         return;
     }
 
-    fetch(`https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=metric`)
+    fetch(`https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=metric&lang=${selectedLanguage}`)
         .then(response => response.json())
         .then(data => {
             if (data.cod !== 200) {
@@ -17,25 +24,25 @@ function getWeather() {
             } else {
                 const iconCode = data.weather[0].icon;
                 const weatherIcon = getWeatherIcon(iconCode);
-                
+
                 const weatherInfo = `
                     <div class="weather-icon">${weatherIcon}</div>
                     <h2>${data.name}, ${data.sys.country}</h2>
-                    <p><strong>Temperature:</strong> ${data.main.temp}°C</p>
-                    <p><strong>Weather:</strong> ${data.weather[0].description}</p>
-                    <p><strong>Humidity:</strong> ${data.main.humidity}%</p>
-                    <p><strong>Wind Speed:</strong> ${data.wind.speed} m/s</p>
+                    <p><strong>${selectedLanguage === 'en' ? 'Temperature' : 'درجة الحرارة'}:</strong> ${data.main.temp}°C</p>
+                    <p><strong>${selectedLanguage === 'en' ? 'Weather' : 'الطقس'}:</strong> ${data.weather[0].description}</p>
+                    <p><strong>${selectedLanguage === 'en' ? 'Humidity' : 'الرطوبة'}:</strong> ${data.main.humidity}%</p>
+                    <p><strong>${selectedLanguage === 'en' ? 'Wind Speed' : 'سرعة الرياح'}:</strong> ${data.wind.speed} m/s</p>
                 `;
                 weatherOutput.innerHTML = weatherInfo;
             }
         })
         .catch(error => {
-            weatherOutput.innerHTML = `<p class="error">Error fetching weather data.</p>`;
+            weatherOutput.innerHTML = `<p class="error">${selectedLanguage === 'en' ? 'Error fetching weather data.' : 'خطأ في جلب بيانات الطقس.'}</p>`;
         });
 }
 
+// Get appropriate weather icon
 function getWeatherIcon(iconCode) {
-    // Map OpenWeatherMap icon codes to emoji or Unicode characters
     const icons = {
         "01d": "☀️", // clear sky
         "01n": "🌙", // clear sky night
@@ -56,6 +63,10 @@ function getWeatherIcon(iconCode) {
         "50d": "🌫️", // mist
         "50n": "🌫️"  // mist night
     };
+
+    return icons[iconCode] || "🌍"; // Default icon
+}
+
 
     return icons[iconCode] || "🌍"; // Default icon
 }
