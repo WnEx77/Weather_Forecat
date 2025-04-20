@@ -1,44 +1,107 @@
-body {
-    font-family: Arial, sans-serif;
-    background-color: #f0f8ff;
+* {
+    box-sizing: border-box;
     margin: 0;
     padding: 0;
 }
 
-.weather-container {
-    text-align: center;
-    margin-top: 50px;
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #f7f7f7;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    padding: 20px;
 }
 
-#city {
-    padding: 10px;
-    font-size: 16px;
-    width: 200px;
+.weather-container {
+    background-color: #fff;
+    padding: 40px;
+    border-radius: 10px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    width: 100%;
+    max-width: 500px;
+}
+
+h1 {
+    font-size: 2.5rem;
+    margin-bottom: 20px;
+    color: #333;
+}
+
+input {
+    padding: 12px;
+    font-size: 1rem;
+    width: 70%;
+    max-width: 300px;
+    border-radius: 25px;
+    border: 2px solid #4CAF50;
+    outline: none;
+    margin-bottom: 20px;
+    transition: all 0.3s ease-in-out;
+}
+
+input:focus {
+    border-color: #4CAF50;
+    box-shadow: 0 0 10px rgba(76, 175, 80, 0.2);
 }
 
 button {
-    padding: 10px;
-    font-size: 16px;
+    padding: 12px 25px;
+    font-size: 1.2rem;
     cursor: pointer;
     background-color: #4CAF50;
     color: white;
     border: none;
-    border-radius: 5px;
+    border-radius: 30px;
+    margin-top: 10px;
+    transition: all 0.3s ease;
 }
 
 button:hover {
     background-color: #45a049;
+    transform: translateY(-2px);
 }
 
 #weather-output {
-    margin-top: 20px;
+    margin-top: 30px;
+    padding: 20px;
+    border-radius: 8px;
+    background-color: #f0f0f0;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+#weather-output h2 {
+    font-size: 2rem;
+    color: #333;
+    margin-bottom: 15px;
 }
 
 #weather-output p {
-    font-size: 18px;
+    font-size: 1.2rem;
+    color: #555;
+    margin-bottom: 10px;
 }
 
 .error {
-    color: red;
-    font-size: 18px;
+    color: #e74c3c;
+    font-size: 1.2rem;
+    margin-top: 20px;
+}
+
+.weather-icon {
+    font-size: 50px;
+    margin-bottom: 20px;
+    color: #4CAF50;
+}
+
+@media (max-width: 600px) {
+    .weather-container {
+        padding: 30px;
+    }
+
+    input, button {
+        width: 100%;
+    }
 }
